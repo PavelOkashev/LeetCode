@@ -4,7 +4,7 @@ import "fmt"
 
 func main() {
 	nums := []int{3,1,3,4,18,10}
-	fmt.Println(twoSum(nums, 6))
+	fmt.Println(twoSum(nums, 21))
 
 }
 
