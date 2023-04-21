@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type ListNode struct {
     Val int
@@ -9,39 +11,34 @@ type ListNode struct {
 
 func main() {
 	l1 := &ListNode{}
-	l1.Val = 3
+	l1.Val = 9
 	l1.Next = &ListNode{}
 	l1.Next.Val = 9
 	l2 := &ListNode{}
-	l2.Val = 5
+	l2.Val = 9
 	l2.Next = &ListNode{}
-	l2.Next.Val = 2
+	l2.Next.Val = 9
 	l3 := addTwoNumbers(l1, l2)
-	fmt.Println(l3.Val, l3.Next.Val)
+	fmt.Println(l3.Val, l3.Next.Val, l3.Next.Next.Val)
 }
  
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
-	result := &ListNode{}
-	resultNext := result
-	var count int = 0 
-	for l1 != nil && l2 != nil {
-		var sum int = l1.Val + l2.Val
-		if count > 0 {
-			sum+=1
-			count-=1
+    result := l1
+	var dec int = 0
+	for rN := result ; rN != nil || l2 != nil || dec > 0; rN = rN.Next {
+		if l1 != nil {
+			dec += l1.Val
+			l1 = l1.Next
 		}
-		if sum > 10 {
-			sum-= 10
-			count+=1
+		if l2 != nil {
+			dec +=l2.Val
+			l2 = l2.Next
 		}
-		resultNext.Val = sum
-		l1 = l1.Next
-		l2 = l2.Next
-		if l1 != nil || l2 != nil {
-			resultNext.Next = &ListNode{}
-			resultNext = resultNext.Next 
+		rN.Val = dec%10
+		dec /= 10
+		if l2 != nil || dec > 0 || l1 != nil {
+			rN.Next = &ListNode{}
 		}
 	}
-	
 	return result
 }
